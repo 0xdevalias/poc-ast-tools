@@ -1,0 +1,11 @@
+{
+  "global": {}
+  // "global.(anonymous)": {
+  //   "f": "b",
+  //   "k": "f"
+  // },
+  // "global.(anonymous).innerFunction": {
+  //   "f": "x",
+  //   "k": "y"
+  // }
+}
