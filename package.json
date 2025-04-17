@@ -14,7 +14,7 @@
     "@babel/generator": "^7.22.7",
     "@types/node": "^18.0.6",
     "acorn": "^8.14.1",
-    "acorn-loose": "^8.4.0",
+    "acorn-loose": "^8.5.0",
     "diff": "^5.1.0",
     "escodegen": "^2.1.0",
     "escope": "^4.0.0",

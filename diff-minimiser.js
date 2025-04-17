@@ -76,17 +76,6 @@
 //         - errorRecovery: By default, Babel always throws an error when it finds some invalid code. When this option is set to true, it will store the parsing error and try to continue parsing the invalid input file. The resulting AST will have an errors property representing an array of all the parsing errors. Note that even when this option is enabled, @babel/parser could throw for unrecoverable errors.
 //         - strictMode: By default, ECMAScript code is parsed as strict only if a "use strict"; directive is present or if the parsed file is an ECMAScript module. Set this option to true to always parse files in strict mode.
 
-// TODO: Update acorn-loose to a modern version once they publish them: https://github.com/acornjs/acorn/issues/1349
-//
-//   Until then.. we might be able to do the following in package.json:
-//     "overrides": {
-//       "acorn-loose": {
-//         "acorn": "^8.14.1"
-//       }
-//     }
-//
-//   Do we actually use acorn-loose in any of our modern code paths, or is it just for legacy reasons? It seems like we're mostly using the tokenizer from the normal acorn package now in normalizeIdentifierNamesInCodeV3?
-
 // TODO: We could also try using a more error tolerant parser, like acorn's loose parser
 //   https://github.com/acornjs/acorn/tree/master/acorn-loose/
 //     An error-tolerant JavaScript parser written in JavaScript.
