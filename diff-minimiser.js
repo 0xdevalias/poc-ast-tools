@@ -1739,6 +1739,7 @@ function normalizeIdentifierNamesInCodeV2(code, errorContext = {}) {
 function normalizeIdentifierNamesInCodeV3(code, errorContext = {}) {
   try {
     let identifierCounter = 1;
+    let privateIdentifierCounter = 1;
     const identifierMap = new Map();
 
     // Tokenize the code into pre-AST tokens
@@ -1761,6 +1762,15 @@ function normalizeIdentifierNamesInCodeV3(code, errorContext = {}) {
           }
         }
         return identifierMap.get(token.value);
+      }
+
+      // TODO: potentially merge this with the main identifier checking above to DRY the code a bit?
+      if (token.type.label === 'privateId') {
+        const id = `#${token.value}`;
+        if (!identifierMap.has(id)) {
+          identifierMap.set(id, `#priv${privateIdentifierCounter++}`);
+        }
+        return identifierMap.get(id);
       }
 
       // Make sure we don't lose empty strings
