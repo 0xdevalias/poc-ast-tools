@@ -58,7 +58,29 @@
 // TODO: do we even need to fully parse with babel/parser? Can we just use a tokenizer then filter out the identifiers?
 //   https://github.com/eslint/espree#tokenize
 //     https://github.com/eslint/espree#options
-//   See normalizeIdentifierNamesInCodeV3
+//
+//   See normalizeIdentifierNamesInCodeV3 which uses acorn's tokenizer
+//
+//   While I don't think @babel/parser exposes it's tokenizer directly (TODO: check that..), it does have an option that allows us to access the tokens during a normal parse..
+//   I'm not sure if that will give us back tokens even when parsing fails.. but might be worth looking into to potentially minimise our dependencies even further..?
+//   We could also potentially combine that with the `errorRecovery` option if we needed to be more robust.
+//     https://babeljs.io/docs/babel-parser#api
+//       Options
+//         - tokens: Adds all parsed tokens to a tokens property on the File node
+//         - ranges: Adds a range property to each node: [node.start, node.end]
+//         - errorRecovery: By default, Babel always throws an error when it finds some invalid code. When this option is set to true, it will store the parsing error and try to continue parsing the invalid input file. The resulting AST will have an errors property representing an array of all the parsing errors. Note that even when this option is enabled, @babel/parser could throw for unrecoverable errors.
+//         - strictMode: By default, ECMAScript code is parsed as strict only if a "use strict"; directive is present or if the parsed file is an ECMAScript module. Set this option to true to always parse files in strict mode.
+
+// TODO: Update acorn-loose to a modern version once they publish them: https://github.com/acornjs/acorn/issues/1349
+//
+//   Until then.. we might be able to do the following in package.json:
+//     "overrides": {
+//       "acorn-loose": {
+//         "acorn": "^8.14.1"
+//       }
+//     }
+//
+//   Do we actually use acorn-loose in any of our modern code paths, or is it just for legacy reasons? It seems like we're mostly using the tokenizer from the normal acorn package now in normalizeIdentifierNamesInCodeV3?
 
 // TODO: We could also try using a more error tolerant parser, like acorn's loose parser
 //   https://github.com/acornjs/acorn/tree/master/acorn-loose/
@@ -67,6 +89,7 @@
 //     It will, to recover from missing brackets, treat whitespace as significant, which has the downside that it might mis-parse a valid but weirdly indented file. It is recommended to always try a parse with the regular acorn parser first, and only fall back to this parser when that one finds syntax errors.
 //   See normalizeIdentifierNamesInCodeV2
 //     This seems to work pretty well!
+//       But just using the tokenizer as in normalizeIdentifierNamesInCodeV3 seems like it might work even better..
 
 // TODO: we need to figure out how to make this preserve the colouring from git diff colour moved when passed through it
 
