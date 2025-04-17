@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+// TODO: BUG: We currently don't update the line numbers in the diff when we remove lines, so the patch metadata is invalid
+//   See also:
+//     https://github.com/0xdevalias/chatgpt-source-watch/blob/main/scripts/fix-diff-headers.js
+//     https://github.com/0xdevalias/udio-source-watch/blob/main/scripts/fix-diff-headers.js
+
 // TODO: In compareNormalizedCodeDiffs
 //   Maybe make a refactored compareNormalizedCodeDiffsV2 version of this function and revert the
 //     existing to it's former state
@@ -455,6 +460,10 @@ async function main() {
     );
 
     // TODO: refactor the core logic of this map/filter into a helper function?
+    // TODO: BUG: I think this currently doesn't update the Chunk's oldStart, oldLines, newStart, newLines values when we remove bits of the diff, making the patch metadata invalid
+    //   See also:
+    //     https://github.com/0xdevalias/chatgpt-source-watch/blob/main/scripts/fix-diff-headers.js
+    //     https://github.com/0xdevalias/udio-source-watch/blob/main/scripts/fix-diff-headers.js
     const filteredChunks = enrichedChunks
       .map((chunk) => {
         // Filter out 'isNormalisedCodeEqual' entries from 'updatedGroupedChanges'
