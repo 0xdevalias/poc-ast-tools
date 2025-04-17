@@ -1049,7 +1049,8 @@ function prepareCodeForASTParsingV2(code, errorContext = {}) {
     let ast;
     // try {
     // Parse the code into an AST using acornLoose's error tolerant parser
-    ast = acornLoose.parse(preProcessedCode, { ecmaVersion: 2020 });
+    ast = acornLoose.parse(preProcessedCode, { ecmaVersion: "latest" });
+    // ast = acornLoose.parse(preProcessedCode, { ecmaVersion: "latest", sourceType: "module" });
     // } catch (err) {
     //   // Hacky workaround to attempt to catch more complex ternary cases
     //   console.error(
@@ -1742,7 +1743,7 @@ function normalizeIdentifierNamesInCodeV3(code, errorContext = {}) {
 
     // Tokenize the code into pre-AST tokens
     const acornTokenizer = acorn.tokenizer(code, {
-      ecmaVersion: 2020,
+      ecmaVersion: "latest",
     });
 
     // TODO: Can we combine the Array.from and the .map to only process it once?
