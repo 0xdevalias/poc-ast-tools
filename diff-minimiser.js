@@ -1759,7 +1759,6 @@ function normalizeIdentifierNamesInCodeV3(code, errorContext = {}) {
           } else {
             identifierMap.set(token.value, token.value);
           }
-
         }
         return identifierMap.get(token.value);
       }
