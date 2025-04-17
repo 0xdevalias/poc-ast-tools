@@ -10,10 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.22.5",
-    "@babel/generator": "^7.22.5",
+    "@babel/core": "^7.22.8",
+    "@babel/generator": "^7.22.7",
     "@types/node": "^18.0.6",
-    "escodegen": "^2.0.0",
+    "acorn": "^8.14.1",
+    "acorn-loose": "^8.4.0",
+    "diff": "^5.1.0",
+    "escodegen": "^2.1.0",
     "escope": "^4.0.0",
     "eslint-scope": "^7.2.2",
     "espree": "^9.6.1",
@@ -21,6 +24,7 @@
     "estraverse": "^5.3.0",
     "jscodeshift": "^0.15.1",
     "json5": "^2.2.3",
-    "node-fetch": "^3.2.6"
+    "node-fetch": "^3.2.6",
+    "parse-diff": "^0.11.1"
   }
 }
